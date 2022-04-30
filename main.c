@@ -49,8 +49,20 @@ char *password_hash(char *password)
 // Retorna 1 caso os hash sejam equivalentes e 0 caso sejam falsos
 int password_hash_compare(char *password, char *hashed_password)
 {
-    // printf("\n\n Função password_hash_compare: \n %i\n", strcasecmp(hashed_password, password_hash(password)));
     if (strcasecmp(hashed_password, password_hash(password)) == 0)
+    {
+        return 1;
+    }
+
+    return 0;
+};
+
+// Função responsável por retornar verificar se o hash da senha digitada corresponde ao hash salvo no arquivo
+// Recebe a senha e o hash como paramentro
+// Retorna 1 caso os hash sejam equivalentes e 0 caso sejam falsos
+int first_name_compare(char *input_first_name, char *file_first_name)
+{
+    if (strcasecmp(input_first_name, file_first_name) == 0)
     {
         return 1;
     }
@@ -63,14 +75,11 @@ void register_user(char *first_name, char *last_name, char *password)
     char *data_string = malloc(MAX_LENGTH_DATA_STRING);
 
     strcat(data_string, first_name);
-    strcat(data_string, ";,;");
+    strcat(data_string, " ; ");
     strcat(data_string, last_name);
-    strcat(data_string, ";,;");
+    strcat(data_string, " ; ");
     strcat(data_string, password_hash(password));
-    strcat(data_string, ";;\n");
-
-    printf("First name: %s \n\n", first_name);
-    printf("%s\n\n", data_string);
+    strcat(data_string, " ;;\n");
 
     FILE *fp = fopen(FILENAME, "a+");
 
@@ -86,15 +95,30 @@ void register_user(char *first_name, char *last_name, char *password)
 void login(char *input_first_name, char *input_password)
 {
 
+    int authenticated = 0;
     FILE *fp = fopen(FILENAME, "r");
 
-    char *first_name = malloc(1024);
+    char *first_name = malloc(MAX_LENGTH_FIRST_NAME);
     char *last_name = malloc(MAX_LENGTH_LAST_NAME);
-    char *hashed_password = malloc(1024);
+    char *hashed_password = malloc(MAX_LENGTH_DATA_STRING);
 
-    while (fscanf(fp, "%s;,;%s;,;%s;;\n", first_name, last_name, hashed_password) != EOF)
+    while (fscanf(fp, "%s ; %s ; %s ;;\n", first_name, last_name, hashed_password) != EOF)
     {
-        printf("Nome: %s \nSobrenome %s \nHash %s\n\n", first_name, last_name, hashed_password);
+        if (password_hash_compare(input_password, hashed_password) == 1 && first_name_compare(input_first_name, first_name) == 1)
+        {
+            authenticated = 1;
+            break;
+        }
+    }
+
+    if (authenticated == 1)
+    {
+        printf("\n Logado!\n");
+        printf("Seja bem vindo %s!\n", first_name);
+    }
+    else
+    {
+        printf("\n Erro ao fazer login, verifique login e senha!\n");
     }
 
     free(first_name);
@@ -151,6 +175,10 @@ int main(void)
             login(first_name, password);
 
             break;
+        case 0:
+            printf("Obrigado por usar o sistema!\n");
+            exit;
+
         default:
             printf("Digite uma opção válida!\n");
             break;
