@@ -1,4 +1,0 @@
-joao;,;borges;,;$6$rounds=20000$$yFLFcCcBrJMTqNjKqAyy2LoGg0MNHnVbGi/5iFWGSDzbRUa7tYpD7z4kxHeePMsbm/eI0aXkLq7fbWU8aLcvN/;;
-leo;,;matias;,;$6$rounds=20000$$yFLFcCcBrJMTqNjKqAyy2LoGg0MNHnVbGi/5iFWGSDzbRUa7tYpD7z4kxHeePMsbm/eI0aXkLq7fbWU8aLcvN/;;
-jane;,;borges;,;$6$rounds=20000$$yFLFcCcBrJMTqNjKqAyy2LoGg0MNHnVbGi/5iFWGSDzbRUa7tYpD7z4kxHeePMsbm/eI0aXkLq7fbWU8aLcvN/;;
-marlon;,;domenech;,;$6$rounds=20000$$yFLFcCcBrJMTqNjKqAyy2LoGg0MNHnVbGi/5iFWGSDzbRUa7tYpD7z4kxHeePMsbm/eI0aXkLq7fbWU8aLcvN/;;
