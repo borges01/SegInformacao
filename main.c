@@ -14,9 +14,9 @@
 // Função responsável por realizar o print do menu inicial
 void print_menu()
 {
-    printf("\nMenu \n");
+    printf("\n Menu \n");
     printf("1 - Registrar-se \n");
-    printf("2 - Login \n");
+    printf("2 -Login \n");
     printf("0 - Sair \n");
 };
 
@@ -89,7 +89,7 @@ void register_user(char *first_name, char *last_name, char *password)
 
     free(data_string);
 
-    printf("Usuário registrado com sucesso! \n");
+    printf("Usuário registrado com sucesso! \n\n");
 }
 
 void login(char *input_first_name, char *input_password)
@@ -113,15 +113,13 @@ void login(char *input_first_name, char *input_password)
 
     if (authenticated == 1)
     {
-        printf("\nLogado!\n");
+        printf("\n Logado!\n");
         printf("Seja bem vindo %s!\n", first_name);
     }
     else
     {
-        printf("\nErro ao autenticar-se, verifique login e senha!\n");
+        printf("\n Erro ao fazer login, verifique login e senha!\n");
     }
-
-    fclose(fp);
 
     free(first_name);
     free(last_name);
@@ -178,11 +176,11 @@ int main(void)
 
             break;
         case 0:
-            printf("\nObrigado por usar o sistema!\n");
+            printf("Obrigado por usar o sistema!\n");
             exit;
 
         default:
-            printf("\nDigite uma opção válida!\n");
+            printf("Digite uma opção válida!\n");
             break;
         }
     }
