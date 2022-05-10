@@ -118,7 +118,7 @@ void generate_all_numbers()
     FILE *file = fopen(ATTACKFILENAME, "a+");
     char *data_string = malloc(MAX_LENGTH_PASSWORD);
 
-    printf("\n Gerando arquivo com todas as senhas de 6 digitos do 0 ao 9.\n");
+    printf("\nGerando arquivo com todas as senhas de 6 digitos do 0 ao 9.\n");
     printf("Aguarde...\n");
 
     for (int a = 0; a <= 9; a++)
@@ -146,7 +146,7 @@ void generate_all_numbers()
     fclose(file);
     free(data_string);
 
-    printf("\n Arquivo de senhas gerado.\n");
+    printf("\nArquivo de senhas gerado.\n");
 }
 int main(void)
 {
@@ -158,8 +158,8 @@ int main(void)
     }
     else
     {
-        printf("Arquivo não encontrado");
-        // generate_all_numbers();
+        printf("Arquivo não encontrado. \n");
+        generate_all_numbers();
     }
 
     fclose(fp);
