@@ -118,7 +118,7 @@ void login(char *input_first_name, char *input_password)
     }
     else
     {
-        printf("\nErro ao fazer login, verifique login e senha!\n");
+        printf("\nErro ao tentar autenticar-se, verifique login e senha!\n");
     }
 
     free(first_name);
