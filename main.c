@@ -16,7 +16,7 @@ void print_menu()
 {
     printf("\n Menu \n");
     printf("1 - Registrar-se \n");
-    printf("2 -Login \n");
+    printf("2 - Login \n");
     printf("0 - Sair \n");
 };
 
@@ -113,12 +113,12 @@ void login(char *input_first_name, char *input_password)
 
     if (authenticated == 1)
     {
-        printf("\n Logado!\n");
+        printf("\nLogado!\n");
         printf("Seja bem vindo %s!\n", first_name);
     }
     else
     {
-        printf("\n Erro ao fazer login, verifique login e senha!\n");
+        printf("\nErro ao fazer login, verifique login e senha!\n");
     }
 
     free(first_name);
