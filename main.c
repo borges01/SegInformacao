@@ -170,6 +170,22 @@ void login(char *input_username, char *input_password)
     free(hashed_password);
 }
 
+void a() {
+    printf("\n Executano função a");
+}
+
+void b() {
+    printf("\n Executano função b");
+}
+
+void c() {
+    printf("\n Executano função c");
+}
+
+void d() {
+    printf("\n Executano função d");
+}
+
 int main(void)
 {
     // variável responsável por coletar a opção do usuário ao entrar no sistema
