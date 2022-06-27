@@ -171,19 +171,19 @@ void login(char *input_username, char *input_password)
 }
 
 void a() {
-    printf("\n Executano função a");
+    printf("\n Executando função a");
 }
 
 void b() {
-    printf("\n Executano função b");
+    printf("\n Executando função b");
 }
 
 void c() {
-    printf("\n Executano função c");
+    printf("\n Executando função c");
 }
 
 void d() {
-    printf("\n Executano função d");
+    printf("\n Executando função d");
 }
 
 int main(void)
