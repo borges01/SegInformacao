@@ -10,9 +10,12 @@
 #define MAX_LENGTH_LAST_NAME 32
 #define USERNAME_LENGTH 6
 #define PASSWORD_LENGTH 6
+#define MAX_LENGTH_ROLE 6
 #define MAX_LENGTH_DATA_STRING 512
 // constantes responsáveis por definir o nome padrão para o arquivo de dados
 #define FILENAME "data.txt"
+#define FILENAME1 "file1.txt"
+#define FILENAME2 "file2.txt"
 
 // Função responsável por realizar o print do menu inicial
 void print_menu()
@@ -90,7 +93,7 @@ int username_compare(char *input_username, char *file_username)
 
 // Função responsável por registrar um usuário em um arquivo
 //  recebe os dados do usuário como parametro
-void register_user(char *first_name, char *last_name, char *username, char *password)
+void register_user(char *first_name, char *last_name, char *username, char *role, char *password)
 {
     // ponteiro para a string que irá conter a linha que será salva no arquivo
     char *data_string = malloc(MAX_LENGTH_DATA_STRING);
@@ -102,6 +105,8 @@ void register_user(char *first_name, char *last_name, char *username, char *pass
     strcat(data_string, last_name);
     strcat(data_string, " ; ");
     strcat(data_string, username);
+    strcat(data_string, " ; ");
+    strcat(data_string, role);
     strcat(data_string, " ; ");
     strcat(data_string, password_hash(password));
     strcat(data_string, " ;;\n");
@@ -120,7 +125,7 @@ void register_user(char *first_name, char *last_name, char *username, char *pass
 
 // função responsável por realizar o login do usuário
 // recebe o usuário e a senha como parametro
-void login(char *input_username, char *input_password)
+int login(char *input_username, char *input_password)
 {
 
     FILE *fp = fopen(FILENAME, "r");
@@ -129,7 +134,7 @@ void login(char *input_username, char *input_password)
     if (!fp)
     {
         printf("%s não encontrado no diretório. \n", FILENAME);
-        return;
+        return 0;
     }
 
     int authenticated = 0;
@@ -137,10 +142,11 @@ void login(char *input_username, char *input_password)
     char *first_name = malloc(MAX_LENGTH_FIRST_NAME);
     char *last_name = malloc(MAX_LENGTH_LAST_NAME);
     char *username = malloc(USERNAME_LENGTH);
+    char *role = malloc(MAX_LENGTH_ROLE);
     char *hashed_password = malloc(MAX_LENGTH_DATA_STRING);
 
     // percorre o arquivo de dados em busca do usuário digitado
-    while (fscanf(fp, "%s ; %s ; %s ; %s ;;\n", first_name, last_name, username, hashed_password) != EOF)
+    while (fscanf(fp, "%s ; %s ; %s ; %s ; %s ;;\n", first_name, last_name, username, role, hashed_password) != EOF)
     {
         // verifica se a linha em questão possui usuário e senha correspondentes aos que foram digitados
         if (username_compare(input_username, username) == 1 && password_hash_compare(input_password, hashed_password) == 1)
@@ -167,17 +173,45 @@ void login(char *input_username, char *input_password)
     free(first_name);
     free(last_name);
     free(username);
+    free(role);
     free(hashed_password);
+
+    return authenticated;
+}
+
+void restricted_area(char *paper)
+{
+}
+
+void a()
+{
+    printf("\n Executando função a");
+}
+
+void b()
+{
+    printf("\n Executando função b");
+}
+
+void c()
+{
+    printf("\n Executando função c");
+}
+
+void d()
+{
+    printf("\n Executando função d");
 }
 
 int main(void)
 {
     // variável responsável por coletar a opção do usuário ao entrar no sistema
-    int choice;
+    int choice, paper;
     // variáveis responsáveis pelos dados digitados pelo usuário
     char *first_name = malloc(MAX_LENGTH_FIRST_NAME);
     char *last_name = malloc(MAX_LENGTH_LAST_NAME);
     char *username = malloc(USERNAME_LENGTH);
+    char *role = malloc(MAX_LENGTH_ROLE);
     char *password = malloc(PASSWORD_LENGTH);
 
     // enquanto o usuário não digitar 0 para sair, o programa é executado
@@ -203,6 +237,27 @@ int main(void)
             printf("O usuário deve conter 6 caracteres alfanuméricos: \n");
             scanf("%s", username);
 
+            printf("Escolha o seu papel: \n");
+            printf("1) papel1 \n2) papel2 \n3) papel3\n");
+            scanf("%i", &paper);
+
+            switch (paper)
+            {
+            case 1:
+                role = "papel1";
+                break;
+            case 2:
+                role = "papel2";
+                break;
+            case 3:
+                role = "papel3";
+                break;
+
+            default:
+                role = "papel1";
+                break;
+            }
+
             // verifica o usuário digitado até ele ser um usuário válido de 6 digitos
             while (username_length(username) != 1)
             {
@@ -222,7 +277,7 @@ int main(void)
             }
 
             // chama a função responsável por registrar os dados do usuário no arquivo de dados
-            register_user(first_name, last_name, username, password);
+            register_user(first_name, last_name, username, role, password);
 
             break;
         case 2:
