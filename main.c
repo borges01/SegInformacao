@@ -10,7 +10,7 @@
 #define MAX_LENGTH_LAST_NAME 32
 #define USERNAME_LENGTH 6
 #define PASSWORD_LENGTH 6
-#define MAX_LENGTH_ROLE 6
+#define MAX_LENGTH_PAPER 6
 #define MAX_LENGTH_DATA_STRING 512
 // constantes responsáveis por definir o nome padrão para o arquivo de dados
 #define FILENAME "data.txt"
@@ -93,7 +93,7 @@ int username_compare(char *input_username, char *file_username)
 
 // Função responsável por registrar um usuário em um arquivo
 //  recebe os dados do usuário como parametro
-void register_user(char *first_name, char *last_name, char *username, char *role, char *password)
+void register_user(char *first_name, char *last_name, char *username, char *paper, char *password)
 {
     // ponteiro para a string que irá conter a linha que será salva no arquivo
     char *data_string = malloc(MAX_LENGTH_DATA_STRING);
@@ -106,7 +106,7 @@ void register_user(char *first_name, char *last_name, char *username, char *role
     strcat(data_string, " ; ");
     strcat(data_string, username);
     strcat(data_string, " ; ");
-    strcat(data_string, role);
+    strcat(data_string, paper);
     strcat(data_string, " ; ");
     strcat(data_string, password_hash(password));
     strcat(data_string, " ;;\n");
@@ -123,9 +123,475 @@ void register_user(char *first_name, char *last_name, char *username, char *role
     printf("\nUsuário registrado com sucesso! \n");
 }
 
+// funções genéricas para exemplificar o controle de acesso
+void a()
+{
+    printf("\nExecutando função a\n");
+}
+
+void b()
+{
+    printf("\nExecutando função b\n");
+}
+
+void c()
+{
+    printf("\nExecutando função c\n");
+}
+
+void d()
+{
+    printf("\nExecutando função d\n");
+}
+
+// função responsável por iterar e ler o conteúdo de um arquivo
+// recebe o ponteiro do arquivo como parametro
+void read_file(FILE *file)
+{
+    if (!file)
+    {
+        printf("Arquivo não encontrado no diretório. \n");
+        return;
+    }
+
+    // variável auxiliar que irá conter o conteúdo da linha do arquivo
+    char *data = malloc(MAX_LENGTH_DATA_STRING);
+
+    // o arquivo é percorrido
+    while (fscanf(file, "%s ;;\n", data) != EOF)
+    {
+        // a linha é printada
+        printf("%s \n", data);
+    }
+
+    free(data);
+}
+
+// função responsável por sobrescrever o conteúdo de um arquivo
+// recebe o ponteiro do arquivo e o conteúdo a ser incrementado como parametro
+void overwrite_file(FILE *file, char *content)
+{
+    if (!file)
+    {
+        printf("Arquivo não encontrado no diretório. \n");
+        return;
+    }
+
+    // é adicionado o padrão com um espaço, dois pontos e vírgula e uma quebra de linha no arquivo
+    strcat(content, " ;;\n");
+
+    // o conteúdo é escrito no arquivo
+    fputs(content, file);
+
+    printf("Arquivo atualizado com sucesso. \n");
+}
+
+// função responsável por excluir o conteúdo de um arquivo
+// recebe o ponteiro do arquivo como parametro
+void delete_content(FILE *file)
+{
+    if (!file)
+    {
+        printf("Arquivo não encontrado no diretório. \n");
+        return;
+    }
+
+    // o conteúdo é escrito no arquivo
+    fputs(" ;;\n", file);
+
+    printf("Arquivo atualizado com sucesso. \n");
+}
+
+// função responsável por incrementar o conteúdo de um arquivo
+// recebe o ponteiro do arquivo e o conteúdo a ser incrementado como parametro
+void append_file(FILE *file, char *content)
+{
+    if (!file)
+    {
+        printf("Arquivo não encontrado no diretório. \n");
+        return;
+    }
+
+    // é adicionado o padrão com um espaço, dois pontos e vírgula e uma quebra de linha no arquivo
+    strcat(content, " ;;\n");
+
+    // o conteúdo é escrito no arquivo
+    fputs(content, file);
+
+    printf("Arquivo atualizado com sucesso. \n");
+}
+
+// função responsável por deletar um arquivo
+// recebe o nome do arquivo como parametro
+void delete_file(char *filename)
+{
+    remove(filename);
+    printf("Arquivo deletada com sucesso. \n");
+}
+
+// função responsável por criar um arquivo "vazio"
+// recebe o nome do arquivo como parametro
+void create_file(char *filename)
+{
+    FILE *file = fopen(filename, "w");
+
+    // o conteúdo é escrito no arquivo
+    fputs(" ;;\n", file);
+
+    fclose(file);
+    printf("Arquivo criado com sucesso. \n");
+}
+
+// função responsável por printar o menu baseado no papel do usuário e nas regras de controle de acesso que foram
+// estabelecidas
+void print_menu_by_paper(char *paper)
+{
+    // verifica se o papel do usuário logado é o papel1
+    if (strcasecmp(paper, "papel1") == 0)
+    {
+        printf("\nEscolha sua ação \n");
+        printf("1 - Executar função a \n");
+        printf("2 - Executar função b \n");
+        printf("3 - Executar função c \n");
+        printf("4 - Executar função d \n");
+        printf("5 - Ler x\n");
+        printf("6 - Ler y\n");
+        printf("7 - Ler z\n");
+        printf("11 - Ler arquivo 1\n");
+        printf("13 - Sobrescrever arquivo 1\n");
+        printf("15 - Adicionar conteúdo arquivo 1\n");
+        printf("17 - Apagar conteúdo arquivo 1\n");
+        printf("19 - Criar arquivo 1\n");
+        printf("21 - Deletar arquivo 1\n");
+
+        printf("0 - Sair \n");
+    }
+
+    // verifica se o papel do usuário logado é o papel2
+    if (strcasecmp(paper, "papel2") == 0)
+    {
+        printf("\nEscolha sua ação \n");
+        printf("1 - Executar função a \n");
+        printf("2 - Executar função b \n");
+        printf("3 - Executar função c \n");
+        printf("4 - Executar função d \n");
+        printf("5 - Ler x\n");
+        printf("6 - Ler y\n");
+        printf("7 - Ler z\n");
+        printf("8 - Alterar x\n");
+        printf("9 - Alterar y\n");
+        printf("10 - Alterar z\n");
+
+        printf("0 - Sair \n");
+    }
+
+    // verifica se o papel do usuário logado é o papel3
+    if (strcasecmp(paper, "papel3") == 0)
+    {
+        printf("\nEscolha sua ação \n");
+        printf("5 - Ler x\n");
+        printf("6 - Ler y\n");
+        printf("7 - Ler z\n");
+        printf("12 - Ler arquivo 2\n");
+        printf("14 - Sobrescrever arquivo 2\n");
+        printf("16 - Adicionar conteúdo arquivo 2\n");
+        printf("18 - Apagar conteúdo arquivo 2\n");
+        printf("20 - Criar arquivo 2\n");
+        printf("22 - Deletar arquivo 2\n");
+
+        printf("0 - Sair \n");
+    }
+}
+
+void restricted_area(char *paper)
+{
+    printf("\n\n");
+    printf("Área autenticada\n\n");
+
+    int choice;
+    int x = 0, y = 0, z = 0;
+    char *content = malloc(MAX_LENGTH_DATA_STRING);
+    FILE *file;
+
+    while (choice != 0)
+    {
+        print_menu_by_paper(paper);
+        scanf("%i", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            a();
+
+            break;
+        case 2:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            b();
+
+            break;
+        case 3:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            c();
+
+            break;
+        case 4:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            d();
+
+            break;
+        case 5:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0 && !strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de x: %d\n", x);
+
+            break;
+        case 6:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0 && !strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de y: %d\n", y);
+
+            break;
+        case 7:
+            if (!strcasecmp(paper, "papel1") == 0 && !strcasecmp(paper, "papel2") == 0 && !strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de z: %d\n", z);
+
+            break;
+
+        case 8:
+            if (!strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de x: %d\n", x);
+            printf("Digite um novo valor para x: \n");
+            scanf("%d", &x);
+            printf("Valor de x: %d\n", x);
+
+            break;
+        case 9:
+            if (!strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de y: %d\n", y);
+            printf("Digite um novo valor para y: \n");
+            scanf("%d", &y);
+            printf("Valor de x: %d\n", y);
+
+            break;
+        case 10:
+            if (!strcasecmp(paper, "papel2") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            printf("Valor de z: %d\n", z);
+            printf("Digite um novo valor para z: \n");
+            scanf("%d", &z);
+            printf("Valor de x: %d\n", z);
+
+            break;
+        // ler o arquivo1.txt
+        case 11:
+            if ((!strcasecmp(paper, "papel1") == 0))
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+
+            file = fopen(FILENAME1, "r");
+
+            read_file(file);
+
+            fclose(file);
+
+            break;
+            // ler o arquivo2.txt
+        case 12:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+
+            file = fopen(FILENAME2, "r");
+
+            read_file(file);
+
+            fclose(file);
+
+            break;
+
+            // sobrescrever conteúdo de arquivo 1
+        case 13:
+            if (!strcasecmp(paper, "papel1") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME1, "w");
+
+            printf("Digite o conteúdo desejado: \n");
+            scanf("%s", content);
+
+            overwrite_file(file, content);
+
+            fclose(file);
+
+            break;
+            // sobrescrever conteúdo de arquivo 2
+        case 14:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME2, "w");
+
+            printf("Digite o conteúdo desejado: \n");
+            scanf("%s", content);
+
+            overwrite_file(file, content);
+
+            fclose(file);
+
+            break;
+        case 15:
+            if (!strcasecmp(paper, "papel1") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME1, "a");
+
+            printf("Digite o conteúdo desejado: \n");
+            scanf("%s", content);
+
+            append_file(file, content);
+
+            fclose(file);
+
+            break;
+        case 16:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME2, "a");
+
+            printf("Digite o conteúdo desejado: \n");
+            scanf("%s", content);
+
+            append_file(file, content);
+
+            fclose(file);
+
+            break;
+        case 17:
+            if (!strcasecmp(paper, "papel1") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME1, "w");
+
+            delete_content(file);
+
+            fclose(file);
+
+            break;
+        case 18:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            file = fopen(FILENAME2, "w");
+
+            delete_content(file);
+
+            fclose(file);
+
+            break;
+        case 19:
+            if (!strcasecmp(paper, "papel1") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            create_file(FILENAME1);
+
+            break;
+        case 20:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            create_file(FILENAME2);
+
+            break;
+        case 21:
+            if (!strcasecmp(paper, "papel1") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            delete_file(FILENAME1);
+
+            break;
+        case 22:
+            if (!strcasecmp(paper, "papel3") == 0)
+            {
+                printf("\nVocê não tem acesso ao recurso solicitado.\n");
+                break;
+            }
+            delete_file(FILENAME2);
+
+            break;
+        default:
+            printf("\nDigite uma opção valida \n");
+
+            break;
+        }
+    }
+
+    free(content);
+}
+
 // função responsável por realizar o login do usuário
 // recebe o usuário e a senha como parametro
-int login(char *input_username, char *input_password)
+void login(char *input_username, char *input_password)
 {
 
     FILE *fp = fopen(FILENAME, "r");
@@ -134,7 +600,7 @@ int login(char *input_username, char *input_password)
     if (!fp)
     {
         printf("%s não encontrado no diretório. \n", FILENAME);
-        return 0;
+        return;
     }
 
     int authenticated = 0;
@@ -142,11 +608,11 @@ int login(char *input_username, char *input_password)
     char *first_name = malloc(MAX_LENGTH_FIRST_NAME);
     char *last_name = malloc(MAX_LENGTH_LAST_NAME);
     char *username = malloc(USERNAME_LENGTH);
-    char *role = malloc(MAX_LENGTH_ROLE);
+    char *paper = malloc(MAX_LENGTH_PAPER);
     char *hashed_password = malloc(MAX_LENGTH_DATA_STRING);
 
     // percorre o arquivo de dados em busca do usuário digitado
-    while (fscanf(fp, "%s ; %s ; %s ; %s ; %s ;;\n", first_name, last_name, username, role, hashed_password) != EOF)
+    while (fscanf(fp, "%s ; %s ; %s ; %s ; %s ;;\n", first_name, last_name, username, paper, hashed_password) != EOF)
     {
         // verifica se a linha em questão possui usuário e senha correspondentes aos que foram digitados
         if (username_compare(input_username, username) == 1 && password_hash_compare(input_password, hashed_password) == 1)
@@ -162,6 +628,8 @@ int login(char *input_username, char *input_password)
     {
         printf("\nLogado!\n");
         printf("Seja bem vindo %s!\n", first_name);
+
+        restricted_area(paper);
     }
     else
     {
@@ -173,45 +641,19 @@ int login(char *input_username, char *input_password)
     free(first_name);
     free(last_name);
     free(username);
-    free(role);
+    free(paper);
     free(hashed_password);
-
-    return authenticated;
-}
-
-void restricted_area(char *paper)
-{
-}
-
-void a()
-{
-    printf("\n Executando função a");
-}
-
-void b()
-{
-    printf("\n Executando função b");
-}
-
-void c()
-{
-    printf("\n Executando função c");
-}
-
-void d()
-{
-    printf("\n Executando função d");
 }
 
 int main(void)
 {
     // variável responsável por coletar a opção do usuário ao entrar no sistema
-    int choice, paper;
+    int choice, role;
     // variáveis responsáveis pelos dados digitados pelo usuário
     char *first_name = malloc(MAX_LENGTH_FIRST_NAME);
     char *last_name = malloc(MAX_LENGTH_LAST_NAME);
     char *username = malloc(USERNAME_LENGTH);
-    char *role = malloc(MAX_LENGTH_ROLE);
+    char *paper = malloc(MAX_LENGTH_PAPER);
     char *password = malloc(PASSWORD_LENGTH);
 
     // enquanto o usuário não digitar 0 para sair, o programa é executado
@@ -239,22 +681,22 @@ int main(void)
 
             printf("Escolha o seu papel: \n");
             printf("1) papel1 \n2) papel2 \n3) papel3\n");
-            scanf("%i", &paper);
+            scanf("%i", &role);
 
-            switch (paper)
+            switch (role)
             {
             case 1:
-                role = "papel1";
+                paper = "papel1";
                 break;
             case 2:
-                role = "papel2";
+                paper = "papel2";
                 break;
             case 3:
-                role = "papel3";
+                paper = "papel3";
                 break;
 
             default:
-                role = "papel1";
+                paper = "papel1";
                 break;
             }
 
@@ -277,7 +719,7 @@ int main(void)
             }
 
             // chama a função responsável por registrar os dados do usuário no arquivo de dados
-            register_user(first_name, last_name, username, role, password);
+            register_user(first_name, last_name, username, paper, password);
 
             break;
         case 2:
