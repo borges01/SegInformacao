@@ -99,7 +99,7 @@ void register_user(char *first_name, char *last_name, char *username, char *pape
     char *data_string = malloc(MAX_LENGTH_DATA_STRING);
 
     // é criado a linha que será salva no arquivo, seguindo o seguinte padrão
-    // primeiro_nome ; sobrenome ; usuário ; hash_senha ;;
+    // primeiro_nome ; sobrenome ; usuário ; papel ; hash_senha ;;
     strcat(data_string, first_name);
     strcat(data_string, " ; ");
     strcat(data_string, last_name);
@@ -246,7 +246,7 @@ void create_file(char *filename)
 // estabelecidas
 void print_menu_by_paper(char *paper)
 {
-    // verifica se o papel do usuário logado é o papel1
+    // verifica se o papel do usuário logado é o papel1 e mostra as opções para este papel
     if (strcasecmp(paper, "papel1") == 0)
     {
         printf("\nEscolha sua ação \n");
@@ -267,7 +267,7 @@ void print_menu_by_paper(char *paper)
         printf("0 - Sair \n");
     }
 
-    // verifica se o papel do usuário logado é o papel2
+    // verifica se o papel do usuário logado é o papel2 e mostra as opções para este papel
     if (strcasecmp(paper, "papel2") == 0)
     {
         printf("\nEscolha sua ação \n");
@@ -285,7 +285,7 @@ void print_menu_by_paper(char *paper)
         printf("0 - Sair \n");
     }
 
-    // verifica se o papel do usuário logado é o papel3
+    // verifica se o papel do usuário logado é o papel3 e mostra as opções para este papel
     if (strcasecmp(paper, "papel3") == 0)
     {
         printf("\nEscolha sua ação \n");
@@ -308,9 +308,13 @@ void restricted_area(char *paper)
     printf("\n\n");
     printf("Área autenticada\n\n");
 
+    // váriavel responsável por recolher a opção do usuário
     int choice;
+    // variáveis que serão manipuladas a partir de um papel
     int x = 0, y = 0, z = 0;
+    // variável auxiliar para inserir conteúdo em arquivo
     char *content = malloc(MAX_LENGTH_DATA_STRING);
+    // ponteiro de arquivo que será manipulado a partir de um papel
     FILE *file;
 
     while (choice != 0)
@@ -326,6 +330,8 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // executa a função a
             a();
 
             break;
@@ -335,6 +341,8 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // executa a função b
             b();
 
             break;
@@ -344,6 +352,8 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // executa a função c
             c();
 
             break;
@@ -353,6 +363,8 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // executa a função d
             d();
 
             break;
@@ -362,6 +374,7 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+            // código responsável por exibir o valor de x
             printf("Valor de x: %d\n", x);
 
             break;
@@ -371,6 +384,7 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+            // código responsável por exibir o valor de y
             printf("Valor de y: %d\n", y);
 
             break;
@@ -380,6 +394,7 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+            // código responsável por exibir o valor de z
             printf("Valor de z: %d\n", z);
 
             break;
@@ -390,9 +405,12 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // código responsável por alterar o valor de x
             printf("Valor de x: %d\n", x);
             printf("Digite um novo valor para x: \n");
             scanf("%d", &x);
+
             printf("Valor de x: %d\n", x);
 
             break;
@@ -402,26 +420,32 @@ void restricted_area(char *paper)
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+            // código responsável por alterar o valor de y
             printf("Valor de y: %d\n", y);
             printf("Digite um novo valor para y: \n");
             scanf("%d", &y);
-            printf("Valor de x: %d\n", y);
 
+            printf("Valor de x: %d\n", y);
             break;
+
         case 10:
+
             if (!strcasecmp(paper, "papel2") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // código responsável por alterar o valor de z
             printf("Valor de z: %d\n", z);
             printf("Digite um novo valor para z: \n");
             scanf("%d", &z);
-            printf("Valor de x: %d\n", z);
 
+            printf("Valor de x: %d\n", z);
             break;
-        // ler o arquivo1.txt
+
         case 11:
+
             if ((!strcasecmp(paper, "papel1") == 0))
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
@@ -430,13 +454,14 @@ void restricted_area(char *paper)
 
             file = fopen(FILENAME1, "r");
 
+            // executa função para ler arquivo
             read_file(file);
 
             fclose(file);
-
             break;
-            // ler o arquivo2.txt
+
         case 12:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
@@ -445,79 +470,90 @@ void restricted_area(char *paper)
 
             file = fopen(FILENAME2, "r");
 
+            // executa função para ler arquivo
             read_file(file);
 
             fclose(file);
-
             break;
 
-            // sobrescrever conteúdo de arquivo 1
         case 13:
+
             if (!strcasecmp(paper, "papel1") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
             file = fopen(FILENAME1, "w");
 
             printf("Digite o conteúdo desejado: \n");
             scanf("%s", content);
 
+            // executa função para sobrescrever arquivo
             overwrite_file(file, content);
 
             fclose(file);
-
             break;
-            // sobrescrever conteúdo de arquivo 2
+
         case 14:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
             file = fopen(FILENAME2, "w");
 
             printf("Digite o conteúdo desejado: \n");
             scanf("%s", content);
 
+            // executa função para sobrescrever arquivo
             overwrite_file(file, content);
 
             fclose(file);
-
             break;
+
         case 15:
+
             if (!strcasecmp(paper, "papel1") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
             file = fopen(FILENAME1, "a");
 
             printf("Digite o conteúdo desejado: \n");
             scanf("%s", content);
 
+            // executa função para adicionar conteúdo ao final do arquivo
             append_file(file, content);
 
             fclose(file);
-
             break;
+
         case 16:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
             file = fopen(FILENAME2, "a");
 
             printf("Digite o conteúdo desejado: \n");
             scanf("%s", content);
 
+            // executa função para adicionar conteúdo ao final do arquivo
             append_file(file, content);
 
             fclose(file);
-
             break;
+
         case 17:
+
             if (!strcasecmp(paper, "papel1") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
@@ -525,60 +561,76 @@ void restricted_area(char *paper)
             }
             file = fopen(FILENAME1, "w");
 
+            // executa função para apagar conteúdo de arquivo
             delete_content(file);
 
             fclose(file);
-
             break;
+
         case 18:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
             file = fopen(FILENAME2, "w");
 
+            // executa função para apagar conteúdo de arquivo
             delete_content(file);
 
             fclose(file);
-
             break;
+
         case 19:
+
             if (!strcasecmp(paper, "papel1") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
+
+            // executa função para criar arquivo
             create_file(FILENAME1);
-
             break;
+
         case 20:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
-            create_file(FILENAME2);
 
+            // executa função para criar arquivo
+            create_file(FILENAME2);
             break;
+
         case 21:
+
             if (!strcasecmp(paper, "papel1") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
-            delete_file(FILENAME1);
 
+            // executa função para deletar arquivo
+            delete_file(FILENAME1);
             break;
+
         case 22:
+
             if (!strcasecmp(paper, "papel3") == 0)
             {
                 printf("\nVocê não tem acesso ao recurso solicitado.\n");
                 break;
             }
-            delete_file(FILENAME2);
 
+            // executa função para deletar arquivo
+            delete_file(FILENAME2);
             break;
+
         default:
             printf("\nDigite uma opção valida \n");
 
@@ -623,12 +675,13 @@ void login(char *input_username, char *input_password)
         }
     }
 
-    // caso o usuário esteja autenticado uma mensagem de boas vindas é exibido
+    // caso o usuário esteja autenticado uma mensagem de boas vindas é exibido junto com a área autenticada
     if (authenticated == 1)
     {
         printf("\nLogado!\n");
         printf("Seja bem vindo %s!\n", first_name);
 
+        // área autenticada com demais funcionalidades do sistema é exibida
         restricted_area(paper);
     }
     else
@@ -679,6 +732,7 @@ int main(void)
             printf("O usuário deve conter 6 caracteres alfanuméricos: \n");
             scanf("%s", username);
 
+            // usuário escolhe qual é o seu papel no sistema
             printf("Escolha o seu papel: \n");
             printf("1) papel1 \n2) papel2 \n3) papel3\n");
             scanf("%i", &role);
